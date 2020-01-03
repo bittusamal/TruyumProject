@@ -1,0 +1,13 @@
+<div class="jumbotron jumbotron-fluid bg-cover">
+  <div class="container">
+    <h1 class="font-weight-bold">Find Food</h1>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="material-icons" href="#">local_cafe</i></span>
+      </div>
+      <input class="form-control form-control-lg" type="text" placeholder="Search Food" name="search"
+        [(ngModel)]="searchString" (keyup)=filterDate() />
+
+    </div>
+  </div>
+</div>

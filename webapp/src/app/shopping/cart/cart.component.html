@@ -1,0 +1,62 @@
+<ng-container *ngIf="error == 'true';else second">
+  <div class="container">
+    <h2 class="mt-4">Cart</h2>
+    <div class="jumbotron cart-jumbotron mt-4">
+      <h5><i class="material-icons " href="#">sentiment_very_dissatisfied</i> No Items in cart. Use 'Add to Cart' option
+        in <a routerLink="/foodMenu">Menu Item List</a> !!</h5>
+    </div>
+  </div>
+</ng-container>
+<ng-template #second>
+  <ng-container *ngIf="status;else third">
+    <div class="container">
+      <h2 class="mt-4">Cart</h2>
+      <div class="jumbotron cart-jumbotron mt-4">
+        <h5><i class="material-icons " href="#">sentiment_very_dissatisfied</i> No Items in cart. Use 'Add to Cart'
+          option in <a routerLink="/foodMenu">Menu Item List</a> !!</h5>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>
+<ng-template #third>
+  <div *ngIf="deleteStatus">
+    <div class="container">
+      <div class="jumbotron success-jumbotron mt-4">
+        <h5><i class="material-icons " href="#">done</i> Cart Item Deleted Successfully.</h5>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <h2 class="mt-4">Cart</h2>
+    <ul class="list-group mt-4">
+      <li class="list-group-item" *ngFor="let cartItems of cart">
+        <div class="d-flex justify-content-between text-muted">
+          <div>
+            <h4>{{cartItems.name}}</h4>
+          </div>
+          <div class="list-price">{{cartItems.price}}</div>
+        </div>
+        <div class="d-flex justify-content-end">
+          <div><button type="button" class="btn text-muted" (click)="delete(cartItems.id)"><i class="material-icons"
+                href="#">delete_forever</i></button></div>
+        </div>
+      </li>
+
+      <li class="list-group-item">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h2>Total</h2>
+          </div>
+          <div class="list-price">{{total}}</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</ng-template>
+<footer>
+  <nav class="navbar navbar-expand-md fixed-bottom">
+    <div class="copy-right">
+      Copyright 2019
+    </div>
+  </nav>
+</footer>

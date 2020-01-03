@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="card mt-5" style="width:500px;margin: 0 auto; float: none">
+    <div class="card-body justify-content-center align-items-center">
+      <h2 class="card-title mb-4 mb-3">Login</h2>
+
+      <div *ngIf="signedStatus == 'true'">
+        <div class="container text-center">
+          <div class="jumbotron cart-jumbotron mt-4">
+            <h5><i class="material-icons " href="#">error_outline</i> User Already Exist !! Login.</h5>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="errorStatus">
+        <div class="container text-center">
+          <div class="jumbotron cart-jumbotron mt-4">
+            <h5><i class="material-icons " href="#">highlight_off</i> Invalid Username/Password</h5>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="loginStatus">
+        <div class="container text-center">
+          <div class="jumbotron cart-jumbotron mt-4">
+            <h5><i class="material-icons " href="#">error_outline</i> Please Login Before adding Item to Cart.</h5>
+          </div>
+        </div>
+      </div>
+
+      <form [formGroup]="loginForm">
+        <div class="row">
+          <div class="col-sm-12 mb-3">
+            <label for="user">User Name</label>
+            <input type="text" id="user" name="user" class="form-control mb-2" placeholder="Enter UserName"
+              formControlName="userName">
+            <div class="errorMessage" *ngIf="!loginForm.get('userName').valid && loginForm.get('userName').touched">
+              <h6><i class="material-icons " href="#">error</i> User Name is Required</h6>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 mb-3">
+            <label for="pass">Password</label>
+            <input type="password" class="form-control mb-2" name="pass" id="pass" placeholder="Enter Password"
+              formControlName="password">
+            <div class="errorMessage" *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">
+              <h6><i class="material-icons " href="#">error</i> Password is Required</h6>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-8 mb-3">
+            <button type="button" (click)="login(loginForm)" [disabled]="loginForm.invalid" class="btn btn-danger">Login</button>
+          </div>
+          <div class="col-sm-4 mb-3 text-muted">
+            New here?<a routerLink="/signUp"> SignUp</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<footer>
+  <nav class="navbar navbar-expand-md fixed-bottom">
+    <div class="copy-right">
+      Copyright 2019
+    </div>
+  </nav>
+</footer>

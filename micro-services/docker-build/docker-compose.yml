@@ -1,0 +1,74 @@
+version: '3'
+services:
+  payroll-mysql:
+    image: mysql:8.0.18
+    ports:
+      - "33061:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - C:/Users/800427/payrolldb:/var/lib/mysql
+      - ./dbscripts:/docker-entrypoint-initdb.d
+  eureka-discovery-service:
+    image: eureka-discovery-app
+    build: eureka-discovery-service/.
+    ports:
+      - 8761:8761
+  authentication-service:
+    image: authentication-app
+    build: authentication-service/.
+    ports:
+      - 8084:8084
+    depends_on:
+      - payroll-mysql
+      - eureka-discovery-service
+    links:
+      - payroll-mysql  
+      - eureka-discovery-service
+  menuitem-service:
+    image: menuitem-app
+    build: menuitem-service/.
+    ports:
+      - 8085:8085
+    depends_on:
+      - payroll-mysql
+      - eureka-discovery-service
+    links:
+      - payroll-mysql
+      - eureka-discovery-service
+      
+  signup-service:
+    image: signup-app
+    build: signup-service/.
+    ports:
+      - 8087:8087
+    depends_on:
+      - payroll-mysql
+      - eureka-discovery-service
+    links:
+      - payroll-mysql
+      - eureka-discovery-service
+      
+  zuul-gateway:
+    image: zuul-gateway-app
+    build: zuul-gateway/.
+    ports:
+      - 8083:8083
+    depends_on:
+      - authentication-service
+      - menuitem-service
+      - signup-service
+    links:
+      - authentication-service
+      - menuitem-service
+      - signup-service
+      
+  angular-learn:
+    image: angular-learn-app
+    build: angular-learn/.
+    ports:
+      - 8086:80
+    links:
+      - zuul-gateway
+ 
+  

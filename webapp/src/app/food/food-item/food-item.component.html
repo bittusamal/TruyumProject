@@ -1,0 +1,60 @@
+<div class="card">
+  <img class="card-img-top mb-3" src={{data.image}} alt="Card image">
+  <div *ngIf="status && id == cartId">
+    <div class="p-2 bd-highlight mx-3"><i class="material-icons ">add_alert</i> Added Successfully.</div>
+  </div>
+
+  <div class="card-body">
+    <div class="d-flex justify-content-between">
+      <div>
+        
+        <h4 class="card-title font-italic font-weight-bold">{{data.name}}</h4>
+      </div>
+      <div class="rupess">
+        <h4 class="card-title"><i class="fa fa-inr"></i> {{data.price}}</h4>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between mb-3">
+      <div *ngIf="userRole == 'admin';else adminElseBlock">
+        <div *ngIf="data.active == 'Yes'; else elseBlock">
+          <div>
+            <h4><span class="badge badge-success"> Active</span><small> {{data.category}}</small></h4>
+          </div>
+        </div>
+        <ng-template #elseBlock>
+          <div>
+            <h4><span class="badge badge-danger"> Inactive</span><small> {{data.category}}</small></h4>
+          </div>
+        </ng-template>
+      </div>
+      <ng-template #adminElseBlock>
+        <div>
+          <div>
+            <h4><small> {{data.category}}</small></h4>
+          </div>
+        </div>
+      </ng-template>
+      <div *ngIf="data.freeDelivery == 'Yes'">
+        <div><i class="material-icons fav truck-icon" href="#">local_shipping </i><span class="badge badge-info">
+            FREE</span></div>
+      </div>
+    </div>
+    <div *ngIf="userRole == 'admin'">
+      <div class="d-flex justify-content-between mb-3">
+        <div>
+          <h6><i class="material-icons" href="#">access_time</i> <small>Launch</small></h6>
+          {{data.dateOfLaunch | date : 'dd/MM/yyyy'}}
+        </div>
+        <div><button type="button" class="btn btn-danger" (click)="editItem(data.id)"><i class="material-icons"
+              href="#">edit</i> Edit</button></div>
+      </div>
+    </div>
+    <div *ngIf="userRole != 'admin'">
+      <div class="d-flex justify-content-start">
+        <div><button type="button" class="btn btn-info" (click)="addtoCart(data.id)"><i class="material-icons"
+              href="#">shopping_cart</i>Add to Cart</button></div>
+      </div>
+    </div>
+  </div>
+</div>

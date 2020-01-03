@@ -1,0 +1,93 @@
+<div class="container">
+	<div class="card mt-5">
+		<div class="card-body">
+			<h2 class="card-title mb-4 mb-3">Sign Up</h2>
+
+			<div *ngIf="signupStatus">
+				<div class="container text-center">
+					<div class="jumbotron cart-jumbotron mt-4">
+						<h5><i class="material-icons " href="#">error_outline</i> Please Sign Up before Login.</h5>
+					</div>
+				</div>
+			</div>
+			<form [formGroup]="signUp">
+				<div class="row">
+					<div class="col-lg-6 col-md-12 col-sm-12 mb-3">
+						<label for="user">User Name</label>
+						<input type="text" id="user" name="user" class="form-control mb-2" placeholder="Enter UserName"
+							formControlName="userName">
+						<div class="errorMessage"
+							*ngIf="!signUp.get('userName').valid && signUp.get('userName').hasError('minlength');else elseBlockOne">
+							<h6><i class="material-icons " href="#">error</i> User Name is Required</h6>
+						</div>
+						<ng-template #elseBlockOne>
+							<div class="errorMessage"
+								*ngIf="!signUp.get('userName').valid && signUp.get('userName').touched">
+								<h6><i class="material-icons " href="#">error</i>User Name should contain atleast 3
+									characters</h6>
+							</div>
+						</ng-template>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-6 col-sm-12 mb-3">
+						<label for="first">First Name:</label>
+						<input type="text" id="first" name="first" class="form-control mb-2"
+							placeholder="Enter FirstName" formControlName="firstName">
+						<div class="errorMessage"
+							*ngIf="!signUp.get('firstName').valid && signUp.get('firstName').touched">
+							<h6><i class="material-icons " href="#">error</i> First Name is Required</h6>
+						</div>
+					</div>
+					<div class="col-md-6 col-sm-12">
+						<label for="last">Last Name:</label>
+						<input type="text" id="last" name="last" class="form-control mb-2" placeholder="Enter LastName"
+							formControlName="lastName">
+						<div class="errorMessage"
+							*ngIf="!signUp.get('lastName').valid && signUp.get('lastName').touched">
+							<h6><i class="material-icons " href="#">error</i> Last Name is Required</h6>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-6 col-sm-12 mb-3">
+						<label for="pass">Password</label>
+						<input type="password" class="form-control mb-2" name="pass" id="pass"
+							placeholder="Enter Password" formControlName="password">
+						<div class="errorMessage"
+							*ngIf="!signUp.get('password').valid && signUp.get('password').touched">
+							<h6><i class="material-icons " href="#">error</i> Password is Required</h6>
+						</div>
+					</div>
+					<div class="col-md-6 col-sm-12 mb-3">
+						<label for="confirmPassword">Confirm Password</label>
+						<input type="password" class="form-control mb-2" id="confirmPassword" name="confirm"
+							placeholder="Confirm Password" formControlName="confirmPassword">
+						<div class="errorMessage"
+							*ngIf="!signUp.get('confirmPassword').valid && signUp.get('confirmPassword').touched;else elseBlockTwo">
+							<h6><i class="material-icons " href="#">error</i> Confirm Password is Required</h6>
+						</div>
+						<ng-template #elseBlockTwo>
+							<div class="errorMessage"
+								*ngIf="signUp.get('confirmPassword').value != signUp.get('password').value && signUp.get('confirmPassword').touched">
+								<h6><i class="material-icons " href="#">error</i>Confirm Password does not match
+									Password</h6>
+							</div>
+						</ng-template>
+					</div>
+				</div>
+
+				<button type="button" (click)="signup(signUp)" [disabled]="signUp.invalid" class="btn btn-success ">Sign Up</button>
+			</form>
+		</div>
+	</div>
+</div>
+<footer>
+	<nav class="navbar navbar-expand-md fixed-bottom">
+		<div class="copy-right">
+			Copyright 2019
+		</div>
+	</nav>
+</footer>
